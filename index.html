@@ -8,17 +8,68 @@
   --bg:#F2F4F6; --surface:#FFFFFF; --ink:#13202A; --muted:#566673; --line:#DCE2E7;
   --accent:#D9432A; --accent-ink:#FFFFFF; --transit:#0E7480; --transit-bg:#E1F1F2;
   --show:#5B3FD6; --show-bg:#ECE8FB; --food:#B8620B; --food-bg:#FBEBD6; --fly:#2A4A8C; --fly-bg:#E3EAF8;
-  --done:#9AA7B1;
+  --done:#9AA7B1; --mapbg:#E7EEF2; --land:#F7F9FA; --ring:#C3CFD7; --route:#33414C;
   --f-display:'Space Grotesk',system-ui,sans-serif; --f-body:'Inter',system-ui,-apple-system,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
   --bg:#0E161C; --surface:#17222B; --ink:#E9EEF2; --muted:#9BAAB6; --line:#2A3945;
   --accent:#FF6A4D; --accent-ink:#1A0A06; --transit:#5CC7D2; --transit-bg:#14343A;
-  --show:#A892FF; --show-bg:#262046; --food:#F0A55A; --food-bg:#3A2A14; --fly:#8FB0F2; --fly-bg:#1C2A47; --done:#5E6E7A; color-scheme:dark}}
+  --show:#A892FF; --show-bg:#262046; --food:#F0A55A; --food-bg:#3A2A14; --fly:#8FB0F2; --fly-bg:#1C2A47; --done:#5E6E7A; --mapbg:#101C25; --land:#1B2A35; --ring:#2F4250; --route:#B7C4CD; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#0E161C; --surface:#17222B; --ink:#E9EEF2; --muted:#9BAAB6; --line:#2A3945;
   --accent:#FF6A4D; --accent-ink:#1A0A06; --transit:#5CC7D2; --transit-bg:#14343A;
   --show:#A892FF; --show-bg:#262046; --food:#F0A55A; --food-bg:#3A2A14; --fly:#8FB0F2; --fly-bg:#1C2A47; --done:#5E6E7A; color-scheme:dark}
+
+.mapbox{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;margin-top:12px}
+.mapbox header{padding:12px 14px 0}
+.mapbox h4{font:700 16px var(--f-display);margin:0}
+.mapbox .mn{margin:2px 0 0;font-size:12.5px;color:var(--muted)}
+.mapsvg{display:block;width:100%;height:auto;background:var(--mapbg);margin-top:10px;touch-action:manipulation}
+.mp{cursor:pointer}.mp circle,.mp rect{stroke:var(--surface);stroke-width:2}
+.mp text{font:700 11px var(--f-display);fill:#fff;text-anchor:middle;dominant-baseline:central;pointer-events:none}
+.mp.sel circle,.mp.sel rect{stroke:var(--ink);stroke-width:3}
+.mp.sug circle{fill:var(--surface)!important;stroke:var(--show);stroke-width:2;stroke-dasharray:3 2}.mp.sug text{fill:var(--show)}
+.mlabel{font:600 10.5px var(--f-body);fill:var(--ink);paint-order:stroke;stroke:var(--mapbg);stroke-width:3px;pointer-events:none}
+.mlist{list-style:none;margin:0;padding:6px 10px 10px;display:grid}
+.mrow{display:grid;grid-template-columns:26px minmax(0,1fr) auto;gap:10px;align-items:center;padding:8px 4px;border-top:1px solid var(--line);cursor:pointer}
+.mrow:first-child{border-top:0}
+.mrow.sel{background:var(--bg)}
+.mnum{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;color:#fff;font:700 11px var(--f-display)}
+.mrow b{font:600 14px/1.3 var(--f-display);display:block;overflow-wrap:anywhere}
+.mrow small{color:var(--muted);font-size:12px}
+.mdist{font:600 12.5px var(--f-display);color:var(--muted);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mtools{display:flex;gap:8px;padding:0 14px 6px;flex-wrap:wrap}
+.mtools .btn{min-height:34px;font-size:12.5px;padding:0 10px}
+.mtools .btn[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.mrow .btn{min-height:34px;padding:0 10px;font-size:12px}
+.sketch{margin:6px 14px 0}.sketch summary{cursor:pointer;font-weight:600;font-size:13px;color:var(--muted);padding:8px 0;min-height:40px;display:flex;align-items:center}.sketch .mapsvg{margin:6px -14px 0;width:calc(100% + 28px)}.sketch .legend{padding:8px 0}
+.legend{display:flex;gap:12px;flex-wrap:wrap;padding:0 14px;font-size:11.5px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:4px;vertical-align:-1px}
+
+.cashbal{background:var(--ink);color:var(--bg);border-radius:14px;padding:16px;margin-top:14px;display:grid;gap:10px}
+.cashbal .cur{display:grid;gap:2px;padding-bottom:10px;border-bottom:1px solid color-mix(in srgb,var(--bg) 25%,transparent)}
+.cashbal .cur:last-child{border:0;padding:0}
+.cashbal .big{font:700 22px/1.2 var(--f-display);text-wrap:balance}
+.cashbal .sm{font-size:12.5px;opacity:.8;font-variant-numeric:tabular-nums}
+.form{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:12px;margin-top:14px}
+.fld{display:grid;gap:5px;min-width:0}
+.fld label,.fld .lb{font-size:12px;font-weight:600;color:var(--muted);letter-spacing:.02em}
+.in{width:100%;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--bg);color:var(--ink);font:inherit;font-size:16px;padding:0 12px}
+.row2{display:grid;grid-template-columns:minmax(0,1fr) 108px;gap:10px}.row2.eq{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}.in{min-width:0;max-width:100%}input[type=date].in{-webkit-appearance:none;appearance:none;text-align:left}
+.seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:6px}
+.seg button{min-height:44px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:10px;font:600 14px var(--f-body);cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.exp{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 12px;cursor:pointer}
+.exp h4{font:600 15px/1.3 var(--f-display);margin:0;overflow-wrap:anywhere}
+.exp .amt{font:700 16px var(--f-display);text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.exp small{color:var(--muted);font-size:12.5px;grid-column:1}
+.exp .own{font-size:12.5px;color:var(--muted);text-align:right}
+.exp .acts{grid-column:1 / -1;display:flex;gap:8px;margin-top:8px}
+.exp .acts .btn{min-height:36px}
+.btn.danger{color:var(--accent);border-color:var(--accent);background:transparent}
+.sync{font-size:12.5px;color:var(--muted);margin:10px 0 0}
+.sync b{color:var(--ink)}
+.empty{padding:22px 14px;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:12px}
 *{box-sizing:border-box}
 body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px;-webkit-text-size-adjust:100%}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
@@ -129,6 +180,189 @@ const save=()=>{try{localStorage.setItem('bts-tw-done',JSON.stringify(store))}ca
 const isMap=u=>/maps|goo\.gl\/maps|google\.com\/search\?kgmid/.test(u);
 const A=(l,u,cls='')=>`<a class="btn ${cls}" href="${esc(u)}" target="_blank" rel="noopener">${cls.includes('map')?PIN:EXT}${esc(l)}</a>`;
 
+
+const MAPS={"prep": [{"title": "Trip overview", "note": "Whole route across Taiwan. Straight lines show the order you travel in.", "route": true, "outline": true, "pts": [{"name": "Taoyuan Airport (TPE)", "lat": 25.0777, "lng": 121.2328, "kind": "stop", "u": "https://maps.app.goo.gl/B7Vf2qNeUin41obf8", "t": "Land 18 Nov"}, {"name": "Hotel Relax 5, Ximending", "lat": 25.048, "lng": 121.5095, "kind": "base", "u": "https://maps.app.goo.gl/kGcrxZSAcZKuBqiu6", "t": "18 – 19 Nov"}, {"name": "Muzenmotel, Pingtung", "lat": 22.6745, "lng": 120.489, "kind": "stop", "u": "https://maps.app.goo.gl/QuQsV3X3RLMj3Kzu6", "t": "19 – 20 Nov"}, {"name": "Kaohsiung National Stadium", "lat": 22.7257, "lng": 120.2937, "kind": "show", "u": "https://maps.app.goo.gl/ZJcMeMhzcXoYaSLN7", "t": "BTS 19 Nov"}, {"name": "Tetrapod B&B, Xiaoliuqiu", "lat": 22.3395, "lng": 120.3745, "kind": "stop", "u": "https://maps.app.goo.gl/888Q8e2A3qASobxw6", "t": "20 – 21 Nov"}, {"name": "Holiday Inn Taoyuan Airport", "lat": 25.0608, "lng": 121.175, "kind": "stop", "u": "https://www.google.com/maps/place/Holiday+Inn+Taoyuan+Airport/@25.0607804,121.1749874,1410m/data=!3m1!1e3!4m10!3m9!1s0x346820b5dfeefa19:0x5b077f77a64d954c!5m3!1s2026-11-19!4m1!1i2!8m2!3d25.0607804!4d121.1749874!16s%2Fg%2F11c43mpcj7?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D", "t": "21 – 22 Nov"}], "region": "Taiwan", "mode": "driving"}], "d1": [{"title": "Around Hotel Relax 5", "note": "Walking distances from the hotel. Positions are approximate.", "route": false, "pts": [{"name": "Hotel Relax 5", "lat": 25.048, "lng": 121.5095, "kind": "base", "u": "https://maps.app.goo.gl/kGcrxZSAcZKuBqiu6", "t": ""}, {"name": "Chia Chia Record", "lat": 25.0458, "lng": 121.5075, "kind": "stop", "u": "https://maps.app.goo.gl/7G3kRntzvnGqpjvJ8", "t": ""}, {"name": "Ximending Shopping District", "lat": 25.042, "lng": 121.5081, "kind": "stop", "u": "https://maps.app.goo.gl/Lfyhmh9e4XJ6vrUj6", "t": "13 min walk"}, {"name": "Fuhong Beef Noodles", "lat": 25.0447, "lng": 121.5052, "kind": "food", "u": "https://maps.app.goo.gl/iMMfcm4kZeug28x4A", "t": "10 min · 24 hrs"}, {"name": "Ay-Chung Flour-Rice Noodle", "lat": 25.0434, "lng": 121.5074, "kind": "food", "u": "https://maps.app.goo.gl/5CAnTMeu2f1QFxEK7", "t": "till 10:30pm"}, {"name": "天天利美食坊", "lat": 25.044, "lng": 121.5043, "kind": "food", "u": "https://maps.app.goo.gl/RSagqD8FQJW5h4yp8", "t": "till 10:30pm"}, {"name": "廖嬌米粉湯 (西門店)", "lat": 25.0425, "lng": 121.5066, "kind": "food", "u": "https://maps.app.goo.gl/1sTFb196oTfq4XjC9", "t": "till 4am"}, {"name": "八方雲集 萬華漢口店", "lat": 25.0436, "lng": 121.5122, "kind": "food", "u": "https://maps.app.goo.gl/aV2U17swZUfoQ9yi6", "t": "14 min walk"}, {"name": "Hot-Star Large Fried Chicken", "lat": 25.0425, "lng": 121.507, "kind": "sug", "u": "https://www.google.com/maps/search/?api=1&query=Hot-Star%20Large%20Fried%20Chicken%20Ximending", "t": ""}, {"name": "Longshan Temple", "lat": 25.0372, "lng": 121.4999, "kind": "sug", "u": "https://www.google.com/maps/search/?api=1&query=Longshan%20Temple%20Taipei", "t": ""}, {"name": "Huaxi Street Night Market", "lat": 25.0369, "lng": 121.4963, "kind": "sug", "u": "https://www.google.com/maps/search/?api=1&query=Huaxi%20Street%20Night%20Market%20Taipei", "t": ""}], "region": "Ximending Taipei", "mode": "walking"}], "d2": [{"title": "Morning in Ximending", "note": "Breakfast, sights and the walk to HSR Taipei Station. Positions are approximate.", "route": false, "pts": [{"name": "Hotel Relax 5", "lat": 25.048, "lng": 121.5095, "kind": "base", "u": "https://maps.app.goo.gl/kGcrxZSAcZKuBqiu6", "t": ""}, {"name": "Liu Shan Dong", "lat": 25.0475, "lng": 121.509, "kind": "food", "u": "https://maps.app.goo.gl/Nw1DZJvcARrV1ST38", "t": "2 min walk"}, {"name": "Fuzhou Ancestral Pepper Cake", "lat": 25.0481, "lng": 121.5098, "kind": "food", "u": "https://maps.app.goo.gl/pT5VuhCBF6arFPsf8", "t": "opposite hotel"}, {"name": "Yong He Soy Milk", "lat": 25.045, "lng": 121.504, "kind": "food", "u": "https://maps.app.goo.gl/ozBKHnBWFGV3yoKaA", "t": "10 min"}, {"name": "Fuhong Beef Noodles", "lat": 25.0447, "lng": 121.5052, "kind": "food", "u": "https://maps.app.goo.gl/kuK1aSnkVtCRC8VV7", "t": "10 min"}, {"name": "The Red House", "lat": 25.0421, "lng": 121.5058, "kind": "stop", "u": "https://maps.app.goo.gl/a1mVUAHsLZ6wtgFV7", "t": ""}, {"name": "Rainbow Six", "lat": 25.043, "lng": 121.504, "kind": "stop", "u": "https://maps.app.goo.gl/Cy6vWn2ebM2KwuCu5", "t": ""}, {"name": "Chia Chia Record", "lat": 25.0458, "lng": 121.5075, "kind": "stop", "u": "https://maps.app.goo.gl/7G3kRntzvnGqpjvJ8", "t": ""}, {"name": "HSR Taipei Station", "lat": 25.0478, "lng": 121.517, "kind": "move", "u": "https://maps.app.goo.gl/KninezCxRWWxfT6d9", "t": "11:31 train"}], "region": "Ximending Taipei", "mode": "walking"}, {"title": "Pingtung and the concert", "note": "From Zuoying to Pingtung, then out to the stadium. Positions are approximate.", "route": true, "outline": false, "pts": [{"name": "Zuoying HSR Station", "lat": 22.687, "lng": 120.307, "kind": "move", "u": "https://maps.app.goo.gl/KninezCxRWWxfT6d9", "t": "13:05"}, {"name": "Pingtung Station", "lat": 22.6693, "lng": 120.4866, "kind": "move", "u": "https://www.google.com/maps/search/?api=1&query=Pingtung%20Railway%20Station", "t": "~15:00"}, {"name": "津美手工麵", "lat": 22.6728, "lng": 120.4878, "kind": "food", "u": "https://maps.app.goo.gl/uEdTjrcyioXMHmqD7", "t": "15:00 eat"}, {"name": "Muzenmotel", "lat": 22.6745, "lng": 120.489, "kind": "base", "u": "https://maps.app.goo.gl/QuQsV3X3RLMj3Kzu6", "t": "16:00 check in"}, {"name": "Kaohsiung National Stadium", "lat": 22.7257, "lng": 120.2937, "kind": "show", "u": "https://maps.app.goo.gl/ZJcMeMhzcXoYaSLN7", "t": "19:00 concert"}], "region": "Pingtung Taiwan", "mode": "driving"}], "d3": [{"title": "Pingtung to Xiaoliuqiu", "note": "Train or car to Donggang, then the ferry. Positions are approximate.", "route": true, "outline": false, "pts": [{"name": "Muzenmotel", "lat": 22.6745, "lng": 120.489, "kind": "base", "u": "https://maps.app.goo.gl/QuQsV3X3RLMj3Kzu6", "t": "08:00 leave"}, {"name": "Pingtung Station", "lat": 22.6693, "lng": 120.4866, "kind": "move", "u": "https://www.google.com/maps/search/?api=1&query=Pingtung%20Railway%20Station", "t": ""}, {"name": "Donggang Ferry Terminal", "lat": 22.466, "lng": 120.435, "kind": "move", "u": "https://www.google.com/maps/search/?api=1&query=Donggang%20Huaqiao%20Ferry%20Terminal", "t": "ferry ~30 min"}, {"name": "Baishawei Pier", "lat": 22.351, "lng": 120.3685, "kind": "move", "u": "https://www.google.com/maps/search/?api=1&query=Baishawei%20Ferry%20Terminal%20Xiaoliuqiu", "t": "scooter rental"}, {"name": "Tetrapod B&B 消波塊民宿", "lat": 22.3395, "lng": 120.3745, "kind": "stop", "u": "https://maps.app.goo.gl/888Q8e2A3qASobxw6", "t": "check in 15:00"}], "region": "Taiwan", "mode": "driving"}, {"title": "On Lambai Island", "note": "Counterclockwise loop plus your spots. Positions are approximate, so use the Map buttons for exact.", "route": false, "pts": [{"name": "Baishawei Pier", "lat": 22.351, "lng": 120.3685, "kind": "base", "u": "https://www.google.com/maps/search/?api=1&query=Baishawei%20Ferry%20Terminal%20Xiaoliuqiu", "t": "start"}, {"name": "Zhongao Beach", "lat": 22.3512, "lng": 120.373, "kind": "stop", "u": "https://www.google.com/maps/search/?api=1&query=Zhongao%20Beach%20Xiaoliuqiu", "t": ""}, {"name": "Beauty Cave", "lat": 22.351, "lng": 120.358, "kind": "stop", "u": "https://www.google.com/maps/search/?api=1&query=Beauty%20Cave%20Xiaoliuqiu", "t": ""}, {"name": "Wild Boar Trench", "lat": 22.336, "lng": 120.3545, "kind": "stop", "u": "https://www.google.com/maps/search/?api=1&query=Wild%20Boar%20Trench%20Xiaoliuqiu", "t": ""}, {"name": "Black Devil Cave", "lat": 22.333, "lng": 120.3565, "kind": "stop", "u": "https://www.google.com/maps/search/?api=1&query=Black%20Devil%20Cave%20Xiaoliuqiu", "t": ""}, {"name": "Benfu Village (lunch)", "lat": 22.344, "lng": 120.37, "kind": "food", "u": "https://www.google.com/maps/search/?api=1&query=Benfu%20Village%20Xiaoliuqiu", "t": ""}, {"name": "Lobster Cave", "lat": 22.353, "lng": 120.3745, "kind": "stop", "u": "https://www.google.com/maps/search/?api=1&query=Lobster%20Cave%20Xiaoliuqiu", "t": ""}, {"name": "Secret Beach", "lat": 22.347, "lng": 120.379, "kind": "stop", "u": "https://www.google.com/maps/search/?api=1&query=Secret%20Beach%20Xiaoliuqiu", "t": ""}, {"name": "Venice Beach", "lat": 22.335, "lng": 120.362, "kind": "stop", "u": "https://www.google.com/maps/search/?api=1&query=Venice%20Beach%20Xiaoliuqiu", "t": ""}, {"name": "Liuchiu Yu Lighthouse", "lat": 22.333, "lng": 120.364, "kind": "stop", "u": "https://maps.app.goo.gl/UNHDLkznbTnwyrz59", "t": ""}, {"name": "Sunset Pavilion", "lat": 22.338, "lng": 120.357, "kind": "stop", "u": "https://maps.app.goo.gl/dZuCd3vBWgNYRyMz6", "t": ""}, {"name": "Tetrapod B&B", "lat": 22.3395, "lng": 120.3745, "kind": "stop", "u": "https://maps.app.goo.gl/888Q8e2A3qASobxw6", "t": "check in 15:00"}, {"name": "Vase Rock", "lat": 22.342, "lng": 120.383, "kind": "sug", "u": "https://www.google.com/maps/search/?api=1&query=Vase%20Rock%20Xiaoliuqiu", "t": ""}], "region": "Xiaoliuqiu Pingtung", "mode": "driving"}], "d4": [{"title": "Island back to Taipei", "note": "Ferry, taxi, HSR and MRT. Straight lines only.", "route": true, "outline": true, "pts": [{"name": "Sunrise Pavilion", "lat": 22.346, "lng": 120.381, "kind": "stop", "u": "https://maps.app.goo.gl/p9fp7dCoGDwLx8TG6", "t": "06:00"}, {"name": "Baishawei Pier", "lat": 22.351, "lng": 120.3685, "kind": "move", "u": "https://www.google.com/maps/search/?api=1&query=Baishawei%20Ferry%20Terminal%20Xiaoliuqiu", "t": "07:40 ferry"}, {"name": "Donggang Ferry Terminal", "lat": 22.466, "lng": 120.435, "kind": "move", "u": "https://www.google.com/maps/search/?api=1&query=Donggang%20Huaqiao%20Ferry%20Terminal", "t": "08:05"}, {"name": "Zuoying HSR Station", "lat": 22.687, "lng": 120.307, "kind": "move", "u": "https://www.google.com/maps/search/?api=1&query=Zuoying%20HSR%20Station", "t": "09:25 train"}, {"name": "Taipei Main Station", "lat": 25.0478, "lng": 121.517, "kind": "move", "u": "https://www.google.com/maps/search/?api=1&query=Taipei%20Main%20Station", "t": "~11:00"}, {"name": "Zhongshan Station", "lat": 25.0527, "lng": 121.5206, "kind": "stop", "u": "https://maps.app.goo.gl/w6r9SxayxR54QSsD9", "t": "~11:30"}], "region": "Taiwan", "mode": "driving"}, {"title": "Zhongshan and around", "note": "Lunch and shopping spots. Positions are approximate.", "route": false, "pts": [{"name": "Zhongshan Station", "lat": 25.0527, "lng": 121.5206, "kind": "base", "u": "https://maps.app.goo.gl/w6r9SxayxR54QSsD9", "t": "start"}, {"name": "Fuhang Soy Milk", "lat": 25.0443, "lng": 121.5236, "kind": "food", "u": "http://google.com/maps?sca_esv=532111fc5a5c2ade&output=search&q=fu+hang+soy+milk&source=lnms&fbs=ACAhTvwdifjn2dKXmjtOfBxVFl_koHVe5RLSnJlTH2QYaq_YVdbYfq_upmJPcFgYr-v9gSTAIQEOuzyhFqt8W8FJFzaCkf3R_Mc3PgVUsG2axKAzS6WtjC-RYm5YYx4LJHxnHQeaqccXbXDMNtSi8p1JYaHVfTWyieaK_9ERpUccd0eD3vGV4bJcQZznA6g9ad0yz_T32JK0nPsDIee5e9oMa0qxU8OrEw&entry=mc&ved=1t:200715&ictx=111", "t": "till 12:30pm"}, {"name": "Tian Jin Onion Pancake", "lat": 25.0326689, "lng": 121.5297056, "kind": "food", "u": "https://www.google.com/maps/place/Tian+Jin+Onion+Pancake/@25.0338365,121.5230258,3709m/data=!3m1!1e3!4m6!3m5!1s0x3442a98585673043:0xe9aa78fb08f95aed!8m2!3d25.0326689!4d121.5297056!16s%2Fg%2F1td4mdbq?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D", "t": "8am – 10pm"}, {"name": "UR Living 南西一店", "lat": 25.0545, "lng": 121.5228, "kind": "stop", "u": "http://google.com/maps?vet=10CAAQoqAOahcKEwjIup-Sx_iXAxUAAAAAHQAAAAAQDw..i&sca_esv=c9d6325596bae6ce&udm&fvr=1&pvq=Cg0vZy8xMXk0Mmp6bjVyIg8KCXVyIGxpdmluZxACGAM&lqi=Chjlj7DljJfotaTls7DooZd1ciBsaXZpbmdIt6G9qJC9gIAIWicQAxAEGAAYAxgEIhvlj7DljJcg6LWk5bOwIOihlyB1ciBsaXZpbmeSAQVzdG9yZZoBRENpOURRVWxSUVVOdlpFTm9kSGxqUmpsdlQydGtkRnBwTUhwaWFtUldURlJCZVZkVlZuQlphMVl6VkZjMWRFMVhZeEFC-gEECAAQEg&cs=1&um=1&ie=UTF-8&fb=1&gl=sg&sa=X&ftid=0x3442a98e584f49eb:0x40fbf50ebdf0187e", "t": ""}, {"name": "Chia Te Bakery", "lat": 25.0587, "lng": 121.5393, "kind": "stop", "u": "https://www.google.com/maps/search/?api=1&query=Chia%20Te%20Bakery%20Taipei", "t": ""}, {"name": "Zhongshan Metro Mall", "lat": 25.0535, "lng": 121.521, "kind": "sug", "u": "https://www.google.com/maps/search/?api=1&query=Zhongshan%20Metro%20Mall%20Taipei", "t": ""}, {"name": "Din Tai Fung (Xinyi Rd)", "lat": 25.0334, "lng": 121.5297, "kind": "sug", "u": "https://www.google.com/maps/search/?api=1&query=Din%20Tai%20Fung%20Xinyi%20Road%20Taipei", "t": ""}], "region": "Taipei", "mode": "transit"}, {"title": "Taipei to the airport hotel", "note": "About 40 mins by car or 1 hr 30 mins by train.", "route": true, "outline": false, "pts": [{"name": "Zhongshan Station", "lat": 25.0527, "lng": 121.5206, "kind": "stop", "u": "https://maps.app.goo.gl/w6r9SxayxR54QSsD9", "t": "~17:00"}, {"name": "Holiday Inn Taoyuan Airport", "lat": 25.0607804, "lng": 121.1749874, "kind": "stop", "u": "https://www.google.com/maps/place/Holiday+Inn+Taoyuan+Airport/@25.0607804,121.1749874,1410m/data=!3m1!1e3!4m10!3m9!1s0x346820b5dfeefa19:0x5b077f77a64d954c!5m3!1s2026-11-19!4m1!1i2!8m2!3d25.0607804!4d121.1749874!16s%2Fg%2F11c43mpcj7?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D", "t": "19:30"}, {"name": "Taoyuan Airport (TPE)", "lat": 25.0777, "lng": 121.2328, "kind": "move", "u": "https://maps.app.goo.gl/B7Vf2qNeUin41obf8", "t": "tomorrow"}], "region": "Taoyuan Taiwan", "mode": "driving"}], "d5": [{"title": "Hotel to the airport", "note": "About 30 mins by car. Reserve the hotel shuttle a day ahead.", "route": true, "pts": [{"name": "Holiday Inn Taoyuan Airport", "lat": 25.0607804, "lng": 121.1749874, "kind": "base", "u": "https://www.google.com/maps/place/Holiday+Inn+Taoyuan+Airport/@25.0607804,121.1749874,1410m/data=!3m1!1e3!4m10!3m9!1s0x346820b5dfeefa19:0x5b077f77a64d954c!5m3!1s2026-11-19!4m1!1i2!8m2!3d25.0607804!4d121.1749874!16s%2Fg%2F11c43mpcj7?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D", "t": "06:00 leave"}, {"name": "Taoyuan Airport (TPE)", "lat": 25.0777, "lng": 121.2328, "kind": "move", "u": "https://maps.app.goo.gl/B7Vf2qNeUin41obf8", "t": "flights"}], "region": "Taoyuan Taiwan", "mode": "driving"}]};
+const OUT=[[121.54,25.30],[121.74,25.13],[121.94,25.00],[121.92,24.86],[121.87,24.60],[121.62,24.00],[121.38,23.10],[121.15,22.75],[120.90,22.35],[120.85,21.92],[120.70,22.00],[120.60,22.35],[120.45,22.47],[120.27,22.60],[120.16,23.00],[120.14,23.45],[120.18,23.80],[120.40,24.07],[120.50,24.28],[120.70,24.65],[120.90,24.85],[121.05,25.05],[121.40,25.18]];
+const KC={base:'var(--accent)',stop:'var(--ink)',food:'var(--food)',show:'var(--show)',move:'var(--transit)',sug:'var(--show)'};
+const KL={base:'Base / hotel',stop:'Stop',food:'Eat',show:'Concert',move:'Transit',sug:'Suggested'};
+function hav(a,b){const R=6371,r=Math.PI/180,dl=(b.lat-a.lat)*r,dn=(b.lng-a.lng)*r;const x=Math.sin(dl/2)**2+Math.cos(a.lat*r)*Math.cos(b.lat*r)*Math.sin(dn/2)**2;return 2*R*Math.asin(Math.sqrt(x))}
+const fmtD=k=>k<1?Math.round(k*100)*10+' m':(k<10?k.toFixed(1):Math.round(k))+' km';
+function mapHTML(m,mi,id){
+  const pts=m.pts.map((p,i)=>({...p,n:i+1}));
+  const base=pts.find(p=>p.kind==='base')||pts[0];
+  const W=360,pad=34;
+  let la=pts.map(p=>p.lat),lo=pts.map(p=>p.lng);
+  let minLa=Math.min(...la),maxLa=Math.max(...la),minLo=Math.min(...lo),maxLo=Math.max(...lo);
+  const cl=Math.cos((minLa+maxLa)/2*Math.PI/180);
+  let w=(maxLo-minLo)*cl,h=maxLa-minLa;
+  const minSpan=0.004;if(w<minSpan){const c=(maxLo+minLo)/2;minLo=c-minSpan/cl/2;maxLo=c+minSpan/cl/2;w=minSpan}
+  if(h<minSpan){const c=(maxLa+minLa)/2;minLa=c-minSpan/2;maxLa=c+minSpan/2;h=minSpan}
+  let sc=Math.min((W-2*pad)/w,(300-2*pad)/h);
+  let H=Math.max(190,Math.min(340,h*sc+2*pad));
+  const offX=(W-w*sc)/2,offY=(H-h*sc)/2;
+  const X=g=>offX+(g-minLo)*cl*sc,Y=a=>offY+(maxLa-a)*sc;
+  const kmPerPx=111.2*(1/sc);
+  let svg=`<svg class="mapsvg" viewBox="0 0 ${W} ${H}" role="img" aria-label="Map: ${esc(m.title)}">`;
+  if(m.outline){svg+=`<polygon points="${OUT.map(o=>X(o[0]).toFixed(1)+','+Y(o[1]).toFixed(1)).join(' ')}" fill="var(--land)" stroke="var(--ring)" stroke-width="1.2"/>`}
+  // rings
+  if(base){const steps=[0.1,0.25,0.5,1,2,5,10,25,50,100,200];const maxR=Math.min(W,H)/2*kmPerPx;let st=steps.filter(s=>s<=maxR*1.1);st=st.slice(-2);
+    st.forEach(r=>{const rp=r/kmPerPx;svg+=`<circle cx="${X(base.lng)}" cy="${Y(base.lat)}" r="${rp}" fill="none" stroke="var(--ring)" stroke-dasharray="4 4"/><text x="${X(base.lng)}" y="${Math.min(H-4,Y(base.lat)+rp+11)}" class="mlabel" style="font-size:9.5px;fill:var(--muted);text-anchor:middle">${fmtD(r)}</text>`})}
+  if(m.route){svg+=`<polyline points="${pts.map(p=>X(p.lng).toFixed(1)+','+Y(p.lat).toFixed(1)).join(' ')}" fill="none" stroke="var(--route)" stroke-width="2" stroke-dasharray="6 5" stroke-linejoin="round" opacity=".75"/>`}
+  pts.forEach(p=>{const x=X(p.lng),y=Y(p.lat),c=KC[p.kind];
+    svg+=`<g class="mp ${p.kind==='sug'?'sug':''}" data-i="${p.n}" tabindex="0">${p.kind==='base'?`<rect x="${x-12}" y="${y-12}" width="24" height="24" rx="6" fill="${c}"/>`:`<circle cx="${x}" cy="${y}" r="11" fill="${c}"/>`}<text x="${x}" y="${y+.5}">${p.n}</text></g>`});
+  // scale bar
+  const nice=[0.1,0.25,0.5,1,2,5,10,25,50,100,200].filter(s=>s/kmPerPx<W*0.38).pop()||0.1;
+  svg+=`<g transform="translate(12,${H-14})"><rect width="${nice/kmPerPx}" height="3" fill="var(--ink)"/><text x="0" y="-5" class="mlabel" style="font-size:10px">${fmtD(nice)}</text></g></svg>`;
+  const kinds=[...new Set(pts.map(p=>p.kind))];
+  const legend=`<div class="legend">${kinds.map(k=>`<span><i style="background:${KC[k]}"></i>${KL[k]}</span>`).join('')}${base?`<span>Rings: distance from #${base.n}</span>`:''}</div>`;
+  const rows=p=>`<li class="mrow" data-i="${p.n}"><span class="mnum" style="background:${KC[p.kind]}">${p.n}</span><div style="min-width:0"><b>${esc(p.name)}</b><small>${esc(p.t||'')}</small></div><div style="display:grid;justify-items:end;gap:4px"><span class="mdist">${p===base?'start':fmtD(hav(base,p))}</span><a class="btn map" href="${esc(p.u)}" target="_blank" rel="noopener">${PIN}Map</a></div></li>`;
+  const sorted=[...pts].sort((a,b)=>hav(base,a)-hav(base,b));
+  return {html:`<section class="mapbox" data-m="${mi}"><header><h4>${esc(m.title)}</h4><p class="mn">${esc(m.note)}</p></header><div class="mtools" style="margin-top:10px">${gLinks(m,pts)}</div><details class="sketch"><summary>Distance sketch (approximate)</summary>${svg}${legend}</details><div class="mtools" style="margin-top:8px"><button class="btn" data-sort="order" aria-pressed="true">Day order</button><button class="btn" data-sort="dist" aria-pressed="false">Nearest to #${base.n}</button></div><ol class="mlist">${pts.map(rows).join('')}</ol></section>`,pts,base,rows,sorted};
+}
+function gq(p,m){return /Taoyuan Airport|Station|Pier|Terminal/.test(p.name)||/[\u4e00-\u9fff]/.test(p.name)?p.name+' '+m.region:p.name+' '+m.region}
+function gLinks(m,pts){
+  const chunks=[];const real=pts.filter(p=>p.kind!=='sug');const use=m.route?pts:real;
+  for(let i=0;i<use.length;i+=(i?9:10)){chunks.push(use.slice(Math.max(0,i-(i?1:0)),i+10))}
+  if(chunks.length>1&&chunks[chunks.length-1].length<2)chunks.pop();
+  return chunks.map((c,ci)=>{
+    const o=gq(c[0],m),d=gq(c[c.length-1],m),w=c.slice(1,-1).map(p=>gq(p,m)).join('|');
+    const u='https://www.google.com/maps/dir/?api=1&travelmode='+m.mode+'&origin='+encodeURIComponent(o)+'&destination='+encodeURIComponent(d)+(w?'&waypoints='+encodeURIComponent(w):'');
+    const lab=chunks.length>1?`Stops ${use.indexOf(c[0])+1}–${use.indexOf(c[c.length-1])+1} in Google Maps`:'Open all stops in Google Maps';
+    return `<a class="btn map" href="${esc(u)}" target="_blank" rel="noopener">${PIN}${lab}</a>`}).join('');
+}
+const mapState={};
+function mountMaps(id){
+  const host=$('#maps');if(!host)return;
+  const ms=MAPS[id]||[];
+  const out=ms.map((m,i)=>mapHTML(m,i,id));
+  host.innerHTML=out.map(o=>o.html).join('');
+  host.querySelectorAll('.mapbox').forEach(box=>{
+    const o=out[+box.dataset.m];
+    const sel=n=>{box.querySelectorAll('.sel').forEach(e=>e.classList.remove('sel'));box.querySelectorAll(`[data-i="${n}"]`).forEach(e=>e.classList.add('sel'));
+      const r=box.querySelector(`.mrow[data-i="${n}"]`);if(r&&r.scrollIntoView&&false)r.scrollIntoView({block:'nearest'})};
+    box.addEventListener('click',e=>{
+      const sb=e.target.closest('[data-sort]');
+      if(sb){box.querySelectorAll('[data-sort]').forEach(b=>b.setAttribute('aria-pressed',b===sb));
+        const list=sb.dataset.sort==='dist'?o.sorted:o.pts;box.querySelector('.mlist').innerHTML=list.map(o.rows).join('');return}
+      if(e.target.closest('a'))return;
+      const t=e.target.closest('[data-i]');if(t)sel(t.dataset.i)});
+    box.addEventListener('keydown',e=>{if((e.key==='Enter'||e.key===' ')&&e.target.dataset.i){e.preventDefault();sel(e.target.dataset.i)}});
+  });
+}
+
+
+DAYS.push({id:'cash',tab:'Spend',date:'Expenses',title:'Trip expenses'});
+/* ---------- Expenses ---------- */
+const PPL=['YX','LY'];
+const CATS=['Food','Transport','Tickets','Stay','Shopping','Other'];
+const CUR={TWD:'NT$',MYR:'RM'};
+const cash={items:[],mode:'pending',db:null,canWrite:true,editing:null,form:{payer:'YX',split:'equal',cur:'TWD'},arm:null};
+const money=(n,c)=>CUR[c]+' '+(Math.round(n*100)/100).toLocaleString('en-US',{minimumFractionDigits:Number.isInteger(Math.round(n*100)/100)?0:2,maximumFractionDigits:2});
+const todayISO=()=>{const d=new Date(),p=n=>String(n).padStart(2,'0');return d.getFullYear()+'-'+p(d.getMonth()+1)+'-'+p(d.getDate())};
+function shares(e){const a=+e.amount||0;
+  if(e.split==='yx')return{YX:a,LY:0};if(e.split==='ly')return{YX:0,LY:a};
+  if(e.split==='pct'){const y=a*(+e.pct||0)/100;return{YX:y,LY:a-y}}
+  return{YX:a/2,LY:a/2}}
+function splitLabel(e){return e.split==='yx'?'Only YX':e.split==='ly'?'Only LY':e.split==='pct'?`YX ${+e.pct}% / LY ${100-(+e.pct)}%`:'Split equally'}
+function localLoad(){try{cash.items=JSON.parse(localStorage.getItem('bts-tw-exp')||'[]')}catch(e){cash.items=[]}}
+function localSave(){try{localStorage.setItem('bts-tw-exp',JSON.stringify(cash.items))}catch(e){}}
+async function initCash(){
+  localLoad();
+  let db=null,user=null;
+  try{db=await Promise.race([claude.use('db'),new Promise(r=>setTimeout(()=>r(null),10000))])}catch(e){}
+  try{user=await claude.use('user')}catch(e){}
+  if(!db){cash.mode='local';refreshCash();return}
+  try{const w=user&&user.can?await user.can('data.write'):null;if(w===false)cash.canWrite=false}catch(e){}
+  cash.db=db;cash.mode='db';
+  db.collection('expenses').onSnapshot(snap=>{cash.items=snap.docs.map(d=>({id:d.id,...d.data()}));refreshCash()},
+    err=>{if(err&&err.code!=='unavailable'){cash.mode='local';cash.db=null;localLoad();refreshCash()}});
+  refreshCash();
+}
+function summaryHTML(){
+  const by={};cash.items.forEach(e=>{const c=e.cur||'TWD';const o=by[c]=by[c]||{tot:0,paid:{YX:0,LY:0},sh:{YX:0,LY:0}};const a=+e.amount||0;o.tot+=a;o.paid[e.payer]+=a;const s=shares(e);o.sh.YX+=s.YX;o.sh.LY+=s.LY});
+  const cs=Object.keys(by);
+  if(!cs.length)return `<div class="cashbal"><div class="big">All square</div><div class="sm">Add the first expense below. Totals and who owes whom show up here.</div></div>`;
+  return `<div class="cashbal">${cs.map(c=>{const o=by[c],net=o.paid.YX-o.sh.YX;const r=Math.round(net*100)/100;
+    const line=r===0?'All square':`${r>0?'LY':'YX'} owes ${r>0?'YX':'LY'} ${money(Math.abs(r),c)}`;
+    return `<div class="cur"><div class="sm">${c==='TWD'?'Taiwan dollars':'Ringgit'} · total ${money(o.tot,c)}</div><div class="big">${line}</div><div class="sm">YX paid ${money(o.paid.YX,c)} · LY paid ${money(o.paid.LY,c)}</div><div class="sm">YX's share ${money(o.sh.YX,c)} · LY's share ${money(o.sh.LY,c)}</div></div>`}).join('')}</div>`;
+}
+function listHTML(){
+  if(!cash.items.length)return `<div class="empty">No expenses yet. Add one above.</div>`;
+  const items=[...cash.items].sort((a,b)=>(b.date||'').localeCompare(a.date||'')||(b.ts||0)-(a.ts||0));
+  return `<div class="grid">${items.map(e=>{const o=shares(e),oth=e.payer==='YX'?'LY':'YX';const owed=Math.round(o[oth]*100)/100;
+    const armed=cash.arm===e.id;
+    return `<div class="exp" data-id="${esc(e.id)}"><div><h4>${esc(e.desc||'Expense')}</h4></div><div class="amt">${money(+e.amount,e.cur||'TWD')}</div>
+    <small>${esc(e.date||'')} · ${esc(e.cat||'Other')} · ${splitLabel(e)}</small><div class="own">${e.payer} paid${owed?` · ${oth} owes ${money(owed,e.cur||'TWD')}`:''}</div>
+    ${cash.canWrite?`<div class="acts"><button class="btn" data-act="edit">Edit</button><button class="btn danger" data-act="${armed?'del2':'del'}">${armed?'Tap again to delete':'Delete'}</button></div>`:''}</div>`}).join('')}</div>`;
+}
+function syncNote(){
+  if(cash.mode==='pending')return 'Loading shared expenses…';
+  if(cash.mode==='local')return '<b>Saved on this device only.</b> Open the shared link while signed in, with edit or contributor access for you both, to sync between your phones.';
+  return cash.canWrite?'<b>Shared.</b> Both of you see the same list and changes appear live. Needs contributor or editor access.':'<b>Read only.</b> Ask the owner for contributor access to add expenses.';
+}
+function cashHTML(){
+  const f=cash.form;
+  return `<div class="dayhead"><div class="date">Expenses</div><h2>Trip expenses</h2><p class="route">Log who paid and how to split it. The balance updates as you add.</p></div>
+  <div id="cbal"></div>
+  <p class="sync" id="csync"></p>
+  <form class="form" id="cform" autocomplete="off">
+    <div class="fld"><label for="cdesc">What was it for</label><input class="in" id="cdesc" type="text" placeholder="e.g. Fuhong beef noodles" maxlength="80"></div>
+    <div class="row2"><div class="fld"><label for="camt">Amount</label><input class="in" id="camt" type="number" inputmode="decimal" min="0" step="any" placeholder="0"></div>
+      <div class="fld"><label for="ccur">Currency</label><select class="in" id="ccur"><option value="TWD">NT$</option><option value="MYR">RM</option></select></div></div>
+    <div class="fld"><span class="lb">Paid by</span><div class="seg" id="cpay">${PPL.map(p=>`<button type="button" data-p="${p}" aria-pressed="${f.payer===p}">${p}</button>`).join('')}</div></div>
+    <div class="fld"><label for="csplit">How to split</label><select class="in" id="csplit"><option value="equal">Split equally</option><option value="yx">Only for YX</option><option value="ly">Only for LY</option><option value="pct">Custom % for YX</option></select></div>
+    <div class="fld" id="cpctw" hidden><label for="cpct">YX's share (%)</label><input class="in" id="cpct" type="number" inputmode="decimal" min="0" max="100" step="any" value="50"></div>
+    <div class="row2 eq"><div class="fld"><label for="ccat">Category</label><select class="in" id="ccat">${CATS.map(c=>`<option>${c}</option>`).join('')}</select></div>
+      <div class="fld"><label for="cdate">Date</label><input class="in" id="cdate" type="date" value="${todayISO()}"></div></div>
+    <p class="note" id="cerr" style="color:var(--accent);margin:0" hidden></p>
+    <div class="btns" style="margin:0"><button class="btn map" type="submit" id="csave" style="flex:1;justify-content:center;min-height:48px">Add expense</button><button class="btn" type="button" id="ccancel" hidden>Cancel</button></div>
+  </form>
+  <h3 class="sec">All expenses</h3><div id="clist"></div>`;
+}
+function refreshCash(){
+  const b=$('#cbal');if(!b)return;
+  b.innerHTML=summaryHTML();$('#clist').innerHTML=listHTML();$('#csync').innerHTML=syncNote();
+  const dis=!cash.canWrite;$('#cform').querySelectorAll('input,select,button').forEach(x=>x.disabled=dis);
+}
+function bindCash(){
+  const form=$('#cform');if(!form)return;
+  const f=cash.form;cash.editing=null;
+  const setPay=p=>{f.payer=p;$('#cpay').querySelectorAll('button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.p===p))};
+  const sp=()=>{$('#cpctw').hidden=$('#csplit').value!=='pct'};
+  $('#cpay').onclick=e=>{const b=e.target.closest('button');if(b)setPay(b.dataset.p)};
+  $('#csplit').onchange=sp;
+  const reset=()=>{cash.editing=null;form.reset();$('#cdate').value=todayISO();setPay(f.payer);sp();$('#csave').textContent='Add expense';$('#ccancel').hidden=true;$('#cerr').hidden=true};
+  $('#ccancel').onclick=reset;
+  form.onsubmit=async e=>{e.preventDefault();
+    const amt=parseFloat($('#camt').value),desc=$('#cdesc').value.trim(),err=$('#cerr');
+    if(!desc){err.textContent='Add a short description.';err.hidden=false;return}
+    if(!(amt>0)){err.textContent='Enter an amount above 0.';err.hidden=false;return}
+    const pct=$('#csplit').value==='pct'?Math.min(100,Math.max(0,parseFloat($('#cpct').value)||0)):null;
+    const rec={desc,amount:Math.round(amt*100)/100,cur:$('#ccur').value,payer:f.payer,split:$('#csplit').value,cat:$('#ccat').value,date:$('#cdate').value||todayISO(),ts:Date.now()};
+    if(pct!==null)rec.pct=pct;
+    const id=cash.editing||('e'+Date.now().toString(36)+Math.random().toString(36).slice(2,6));
+    $('#csave').disabled=true;
+    try{
+      if(cash.mode==='db'){await cash.db.doc('expenses/'+id).set(rec)}
+      else{const i=cash.items.findIndex(x=>x.id===id);const r={id,...rec};if(i>=0)cash.items[i]=r;else cash.items.push(r);localSave();refreshCash()}
+      reset();
+    }catch(ex){err.textContent=ex&&ex.code==='invalid_argument'?'You can view expenses but not add them. Ask for contributor access.':'Could not save. Try again.';err.hidden=false}
+    $('#csave').disabled=!cash.canWrite;
+  };
+  $('#clist').onclick=async e=>{
+    const a=e.target.closest('[data-act]');if(!a)return;
+    const id=a.closest('.exp').dataset.id,it=cash.items.find(x=>x.id===id);if(!it)return;
+    if(a.dataset.act==='edit'){cash.editing=id;$('#cdesc').value=it.desc||'';$('#camt').value=it.amount;$('#ccur').value=it.cur||'TWD';setPay(it.payer);
+      $('#csplit').value=it.split||'equal';$('#cpct').value=it.pct??50;sp();$('#ccat').value=it.cat||'Other';$('#cdate').value=it.date||todayISO();
+      $('#csave').textContent='Save changes';$('#ccancel').hidden=false;form.scrollIntoView({behavior:'smooth',block:'center'});return}
+    if(a.dataset.act==='del'){cash.arm=id;refreshCash();setTimeout(()=>{if(cash.arm===id){cash.arm=null;refreshCash()}},4000);return}
+    if(a.dataset.act==='del2'){cash.arm=null;
+      try{if(cash.mode==='db')await cash.db.doc('expenses/'+id).delete();else{cash.items=cash.items.filter(x=>x.id!==id);localSave();refreshCash()}}catch(ex){refreshCash()}}
+  };
+  refreshCash();
+  if(cash.mode==='pending'&&!cash.started){cash.started=true;initCash()}
+}
+
 const tabs=$('#tabs');
 const tripStart=new Date('2026-11-18T00:00:00+08:00');
 const todayIdx=(()=>{const d=Math.floor((Date.now()-tripStart)/864e5);return d>=0&&d<=4?d+1:-1})();
@@ -151,6 +385,7 @@ function stopHTML(d,s,i){
   <input type="checkbox" class="chk" aria-label="Mark done: ${esc(s.title)}" ${done?'checked':''}></div>${links?`<div class="btns">${links}</div>`:''}</div></li>`;
 }
 function render(id){
+  if(id==='cash')return cashHTML();
   const idx=DAYS.findIndex(d=>d.id===id),d=DAYS[idx];
   let h='';
   if(id==='prep'){
@@ -158,6 +393,7 @@ function render(id){
     d.todo.forEach((t,i)=>{const k='prep:'+i;h+=`<label><input type="checkbox" class="chk" data-k="${k}" ${store[k]?'checked':''}><span>${esc(t[0])}${t[1]?`<br><a href="${esc(t[1])}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">Open arrival card site</a>`:''}</span></label>`});
     h+=`</div><h3 class="sec">Flights</h3><div class="flights">${FLIGHTS.map(f=>`<div class="fl"><span class="t" style="grid-column:1;color:var(--fly)">${f[0]}</span><b>${f[2]}</b><span class="t" style="color:var(--muted);font-weight:500;grid-column:1">${f[1]}</span><span>${f[3]}</span></div>`).join('')}</div>`;
     h+=`<h3 class="sec">Where you stay</h3><div class="stays">${STAYS.map(s=>`<div class="stay"><div><b>${esc(s.name)}</b><span>${esc(s.when)}</span></div>${A('Map',s.u,'map')}</div>`).join('')}</div>`;
+    h+=`<h3 class="sec">Map</h3><div id="maps"></div>`;
     h+=`<div class="pn"><button class="btn map" data-go="d1">Start Day 1</button></div>`;
     return h;
   }
@@ -170,6 +406,7 @@ function render(id){
   if(d.food&&d.food.length) h+=`<h3 class="sec">${id==='d3'?'Lunch stops on the island':'Eat nearby'}</h3><div class="grid">${d.food.map(f=>foodCard(f)).join('')}</div>`;
   if(d.shops) h+=`<h3 class="sec">Shopping</h3><div class="grid">${d.shops.map(f=>foodCard(f)).join('')}</div>`;
   if(d.recs&&d.recs.length) h+=`<h3 class="sec">Suggested extras</h3><p class="note">Not in your sheet. Ideas to check out if you have time. Confirm hours before going.</p><div class="grid">${d.recs.map(r=>foodCard({name:r.name,tag:r.tag,note:r.note,u:r.u},true)).join('')}</div>`;
+  h+=`<h3 class="sec">Map</h3><div id="maps"></div>`;
   const prev=DAYS[idx-1],next=DAYS[idx+1];
   h+=`<div class="pn">${prev?`<button class="btn" data-go="${prev.id}">← ${prev.tab==='Prep'?'Checklist':prev.tab}</button>`:''}${next?`<button class="btn map" data-go="${next.id}">${next.tab} →</button>`:''}</div>`;
   return h;
@@ -186,7 +423,7 @@ function show(id,scroll){
   const t=$('#tab-'+id);if(t)t.scrollIntoView({inline:'center',block:'nearest'});
   try{history.replaceState(null,'','#'+id)}catch(e){location.hash=id}
   try{localStorage.setItem('bts-tw-day',id)}catch(e){}
-  progress(id);
+  progress(id);mountMaps(id);if(id==='cash')bindCash();
   if(scroll)window.scrollTo({top:0});
 }
 $('#view').addEventListener('change',e=>{
