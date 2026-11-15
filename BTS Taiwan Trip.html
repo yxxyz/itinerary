@@ -1,0 +1,205 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>BTS Taiwan Trip</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap">
+<style>
+/* Layout: sticky day tabs over one day at a time; each day is a timeline rail of tappable stop cards, then food and extras. */
+:root{
+  --bg:#F2F4F6; --surface:#FFFFFF; --ink:#13202A; --muted:#566673; --line:#DCE2E7;
+  --accent:#D9432A; --accent-ink:#FFFFFF; --transit:#0E7480; --transit-bg:#E1F1F2;
+  --show:#5B3FD6; --show-bg:#ECE8FB; --food:#B8620B; --food-bg:#FBEBD6; --fly:#2A4A8C; --fly-bg:#E3EAF8;
+  --done:#9AA7B1;
+  --f-display:'Space Grotesk',system-ui,sans-serif; --f-body:'Inter',system-ui,-apple-system,'Noto Sans TC','PingFang TC','Microsoft JhengHei',sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E161C; --surface:#17222B; --ink:#E9EEF2; --muted:#9BAAB6; --line:#2A3945;
+  --accent:#FF6A4D; --accent-ink:#1A0A06; --transit:#5CC7D2; --transit-bg:#14343A;
+  --show:#A892FF; --show-bg:#262046; --food:#F0A55A; --food-bg:#3A2A14; --fly:#8FB0F2; --fly-bg:#1C2A47; --done:#5E6E7A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E161C; --surface:#17222B; --ink:#E9EEF2; --muted:#9BAAB6; --line:#2A3945;
+  --accent:#FF6A4D; --accent-ink:#1A0A06; --transit:#5CC7D2; --transit-bg:#14343A;
+  --show:#A892FF; --show-bg:#262046; --food:#F0A55A; --food-bg:#3A2A14; --fly:#8FB0F2; --fly-bg:#1C2A47; --done:#5E6E7A; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--f-body);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 48px;-webkit-text-size-adjust:100%}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--surface)}
+.wrap{max-width:680px;margin:0 auto}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+header.top{padding-block:20px 14px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+h1{font:700 30px/1.1 var(--f-display);margin:6px 0 4px;text-wrap:balance}
+.lede{color:var(--muted);margin:0}
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:9;background:var(--surface);margin:0 calc(-1 * max(16px,env(safe-area-inset-left,0px)));padding:8px max(16px,env(safe-area-inset-left,0px));border-bottom:1px solid var(--line);display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+nav.tabs::-webkit-scrollbar{display:none}
+.tab{flex:1 0 auto;min-width:56px;border:1px solid var(--line);background:transparent;color:var(--ink);border-radius:10px;padding:6px 10px;font:inherit;text-align:center;cursor:pointer;line-height:1.2}
+.tab b{display:block;font:700 15px var(--f-display)}
+.tab small{display:block;font-size:11px;color:var(--muted)}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.tab[aria-selected="true"] small{color:var(--bg);opacity:.75}
+.tab.today::after{content:"today";display:block;font-size:10px;color:var(--accent);font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+.tab[aria-selected="true"].today::after{color:var(--bg)}
+.dayhead{padding-block:22px 6px}
+.dayhead .date{font:600 13px var(--f-display);color:var(--accent);letter-spacing:.04em;text-transform:uppercase}
+.dayhead h2{font:700 26px/1.15 var(--f-display);margin:4px 0;text-wrap:balance}
+.dayhead .route{color:var(--muted);margin:0}
+.prog{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:12px;color:var(--muted)}
+.prog .bar{flex:1;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.prog .bar i{display:block;height:100%;background:var(--accent);width:0;transition:width .3s}
+h3.sec{font:700 12px var(--f-body);text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin:30px 0 10px}
+ol.rail{list-style:none;margin:14px 0 0;padding:0;display:grid;gap:10px}
+.stop{display:grid;grid-template-columns:74px minmax(0,1fr);gap:12px}
+.time{font:600 13px/1.3 var(--f-display);color:var(--muted);padding-top:14px;text-align:right;font-variant-numeric:tabular-nums}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;min-width:0;position:relative}
+.card .row{display:flex;gap:10px;align-items:flex-start}
+.card .body{flex:1;min-width:0}
+.kind{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;padding:2px 7px;border-radius:5px;margin-bottom:5px}
+.k-move .kind{background:var(--transit-bg);color:var(--transit)}
+.k-show .kind{background:var(--show-bg);color:var(--show)}
+.k-food .kind{background:var(--food-bg);color:var(--food)}
+.k-fly .kind{background:var(--fly-bg);color:var(--fly)}
+.k-stop .kind{background:var(--bg);color:var(--muted)}
+.card h4{font:600 16px/1.3 var(--f-display);margin:0;overflow-wrap:anywhere}
+.card p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.card ul{margin:6px 0 0;padding-left:18px;color:var(--muted);font-size:14px}
+.card li{margin:2px 0}
+.chk{appearance:none;-webkit-appearance:none;flex:none;width:26px;height:26px;border:2px solid var(--line);border-radius:50%;background:transparent;cursor:pointer;margin-top:1px;display:grid;place-items:center}
+.chk:checked{background:var(--accent);border-color:var(--accent)}
+.chk:checked::after{content:"";width:7px;height:12px;border:solid var(--accent-ink);border-width:0 2.5px 2.5px 0;transform:rotate(45deg) translate(-1px,-1px)}
+.stop.done .card{opacity:.55}.stop.done h4{text-decoration:line-through;text-decoration-color:var(--done)}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.btn{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--bg);font-weight:600;font-size:13.5px;text-decoration:none;color:var(--ink)}
+.btn.map{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn svg{width:15px;height:15px;flex:none}
+.grid{display:grid;gap:10px}
+.fcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 12px;align-items:center}
+.fcard h4{font:600 15.5px/1.3 var(--f-display);margin:0;overflow-wrap:anywhere}
+.fcard .tag{color:var(--food);font-size:13px;font-weight:600}
+.fcard p{margin:2px 0 0;color:var(--muted);font-size:13.5px;grid-column:1}
+.hours{display:inline-block;font-size:12px;font-weight:600;padding:2px 8px;border-radius:99px;background:var(--food-bg);color:var(--food);margin-top:6px}
+.fcard .btn{grid-column:2;grid-row:1 / span 3}
+.extra{border-style:dashed}
+.extra .tag{color:var(--show)}
+.note{font-size:12.5px;color:var(--muted);margin:0 0 10px}
+.loop{display:grid;gap:10px}
+.loop .card h4{font-size:15px}
+.cost{display:inline-block;margin-top:8px;font-size:12.5px;font-weight:600;color:var(--transit);background:var(--transit-bg);padding:2px 8px;border-radius:99px}
+.todo{display:grid;gap:8px;margin:14px 0 0}
+.todo label{display:flex;gap:12px;align-items:flex-start;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;cursor:pointer}
+.todo .chk{margin-top:0}
+.stays{display:grid;gap:8px}
+.stay{display:flex;justify-content:space-between;gap:10px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.stay b{font:600 15px var(--f-display);display:block}.stay span{font-size:13px;color:var(--muted)}
+.flights{display:grid;gap:8px}
+.fl{display:grid;grid-template-columns:auto minmax(0,1fr);gap:2px 12px;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 14px}
+.fl .t{font:600 13px var(--f-display);color:var(--fly);font-variant-numeric:tabular-nums}
+.fl b{font:600 15px var(--f-display)}
+.fl span{color:var(--muted);font-size:13px;grid-column:2}
+footer{margin-top:36px;color:var(--muted);font-size:12.5px;text-align:center}
+.pn{display:flex;gap:10px;margin-top:28px}
+.pn .btn{flex:1;justify-content:center;min-height:46px}
+@media (max-width:380px){.stop{grid-template-columns:58px minmax(0,1fr);gap:8px}.fcard{grid-template-columns:1fr}.fcard .btn{grid-column:1;grid-row:auto}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+<div class="wrap">
+<header class="top">
+  <div class="eyebrow">18 – 22 November 2026 · Taipei · Pingtung · Kaohsiung · Xiaoliuqiu</div>
+  <h1>BTS Taiwan Trip</h1>
+  <p class="lede">Tap a day, follow the timeline, tap the red button to open the spot in Google Maps. Tick stops off as you go.</p>
+</header>
+<nav class="tabs" id="tabs" role="tablist" aria-label="Days"></nav>
+<main id="view" aria-live="polite"></main>
+<footer>All timings, commutes and map links come from your itinerary sheet. Blocks marked "Suggested" are extra ideas, so check opening hours before you go.</footer>
+</div>
+<script>
+const DAYS=[{"id": "prep", "tab": "Prep", "date": "Before you fly", "title": "To-do checklist", "route": "", "todo": [["Complete Taiwan Arrival Card within 7 days before arrival", "https://twac.immigration.gov.tw/"], ["Prepare cash (NTD), many shops are cash-only", null], ["Get eSIM or pocket wifi", null], ["Install Uber or 55688 in case you need e-hailing. Install and set up Line if possible", null]], "flights": []}, {"id": "d1", "tab": "D1", "date": "Wed 18 Nov", "title": "Land in Taipei", "route": "PEN / SIN → TPE → Ximending", "color": "teal", "stops": [{"t": "15:20 – 19:55", "k": "fly", "title": "PEN → TPE · Flight CI732", "sub": "YX flight, China Airlines", "notes": [], "links": []}, {"t": "14:25 – 19:05", "k": "fly", "title": "SIN → TPE · Flight CI754", "sub": "LY flight, China Airlines", "notes": [], "links": []}, {"t": "On arrival", "k": "stop", "title": "7-Eleven in the airport", "sub": "Find the ibon machine and print the concert and bus tickets.", "notes": ["LY can help after reaching. If not, figure it out together later.", "Buy a YoYo Card (悠遊卡) for transport. There are many designs and options to choose from."], "links": [{"l": "Ibon how-to guide", "u": "http://xhslink.com/o/gzcPIBbdVG"}]}, {"t": "21:00", "k": "move", "title": "Commute to Hotel Relax 5", "sub": "By train, about 1 hr to the hotel.", "notes": [], "links": [{"l": "Hotel Relax 5", "u": "https://maps.app.goo.gl/kGcrxZSAcZKuBqiu6"}]}, {"t": "22:00", "k": "stop", "title": "Check in at Hotel Relax 5", "sub": "", "notes": [], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/kGcrxZSAcZKuBqiu6"}]}, {"t": "22:30", "k": "stop", "title": "Makan and drink", "sub": "Check out food around the hotel (picks below).", "notes": [], "links": []}, {"t": "Anytime", "k": "stop", "title": "Chia Chia Record · Hanko Branch", "sub": "Buy albums!!!!! (if possible :3)", "notes": ["Open 10am to 9:50pm, 4 mins walk from hotel."], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/7G3kRntzvnGqpjvJ8"}]}], "food": [{"name": "Fuhong Beef Noodles", "tag": "Noodles", "note": "10 mins from hotel", "hours": "Open 24 hrs", "u": "https://maps.app.goo.gl/iMMfcm4kZeug28x4A", "zh": null}, {"name": "Ximending Shopping District", "tag": "Shopping + snacks", "note": "13 mins walk from hotel", "hours": "Open till 11pm", "u": "https://maps.app.goo.gl/Lfyhmh9e4XJ6vrUj6", "zh": null}, {"name": "Ay-Chung Flour-Rice Noodle", "tag": "Noodles", "note": "Near Ximending shopping district", "hours": "Open till 10:30pm", "u": "https://maps.app.goo.gl/5CAnTMeu2f1QFxEK7", "zh": null}, {"name": "天天利美食坊", "tag": "Ojian, lu rou fan", "note": "", "hours": "Open till 10:30pm", "u": "https://maps.app.goo.gl/RSagqD8FQJW5h4yp8", "zh": null}, {"name": "廖嬌米粉湯（西門店）", "tag": "Lu rou fan, rice-noodle soup", "note": "", "hours": "Open till 4am", "u": "https://maps.app.goo.gl/1sTFb196oTfq4XjC9", "zh": null}, {"name": "八方雲集 萬華漢口店", "tag": "Dumplings", "note": "14 mins walk from hotel", "hours": "Open till 1:30am", "u": "https://maps.app.goo.gl/aV2U17swZUfoQ9yi6", "zh": null}], "recs": [{"name": "Hot-Star Large Fried Chicken (Ximen)", "note": "Giant crispy chicken cutlet, a classic late-night snack.", "u": "https://www.google.com/maps/search/?api=1&query=Hot-Star%20Large%20Fried%20Chicken%20Ximending", "tag": "Food"}, {"name": "Longshan Temple", "note": "Historic temple in Wanhua, a short walk from Ximending. Lovely lit up at night.", "u": "https://www.google.com/maps/search/?api=1&query=Longshan%20Temple%20Taipei", "tag": "Sight"}, {"name": "Huaxi Street Night Market", "note": "Old-school night market close to Longshan for more street food.", "u": "https://www.google.com/maps/search/?api=1&query=Huaxi%20Street%20Night%20Market%20Taipei", "tag": "Food"}]}, {"id": "d2", "tab": "D2", "date": "Thu 19 Nov", "title": "Taipei → Pingtung → BTS", "route": "Ximending → HSR → Pingtung → Kaohsiung Stadium", "color": "purple", "stops": [{"t": "08:00", "k": "stop", "title": "Wake up and breakfast near the hotel", "sub": "Check out first if possible and ask for luggage storage. Must check out by 11:30am.", "notes": [], "links": [{"l": "Hotel Relax 5", "u": "https://maps.app.goo.gl/kGcrxZSAcZKuBqiu6"}]}, {"t": "10:00", "k": "stop", "title": "The Red House", "sub": "Walk around the shopping district after breakfast.", "notes": ["6 mins walk from Yong He."], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/a1mVUAHsLZ6wtgFV7"}]}, {"t": "Then", "k": "stop", "title": "Rainbow Six (打卡 photo spot)", "sub": "Take pics.", "notes": ["5 mins walk from Yong He. Walk 14 mins back to the hotel."], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/Cy6vWn2ebM2KwuCu5"}]}, {"t": "Then", "k": "stop", "title": "Chia Chia Record · Hanko Branch", "sub": "Buy albums!!!!! (if possible :3)", "notes": ["Open 10am to 9:50pm, 4 mins walk from hotel."], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/7G3kRntzvnGqpjvJ8"}]}, {"t": "11:00", "k": "move", "title": "Check out and go to HSR Taipei Station", "sub": "", "notes": [], "links": [{"l": "HSR Taipei Station", "u": "https://maps.app.goo.gl/KninezCxRWWxfT6d9"}]}, {"t": "11:31 – 13:05", "k": "move", "title": "HSR · Taipei → Zuoying", "sub": "Train number 125. LY: 1/6B, YX: 1/6C.", "notes": ["Taipei to Zuoying station: 1 hr 34 mins via HSR."], "links": [{"l": "HSR Taipei Station", "u": "https://maps.app.goo.gl/KninezCxRWWxfT6d9"}]}, {"t": "13:05 – 15:00", "k": "move", "title": "Zuoying → Pingtung", "sub": "Estimate 3 hrs 8 mins to reach Muzen Motel if all public transport.", "notes": ["If you want it fast, take a direct taxi after Zuoying station.", "Transit: fast local train from Xinzuoying to Pingtung, 1 hr.", "Pingtung train station to Muzen Motel: bus 24 mins, car 8 mins."], "links": [{"l": "Route: Taipei → Pingtung", "u": "https://maps.app.goo.gl/k8Mc97tskX8F1HVV6"}]}, {"t": "15:00 – 16:00", "k": "food", "title": "津美手工麵", "sub": "Eat. Other stores nearby too, pick what looks better.", "notes": ["8 mins walk from Muzen Motel. Eat first or drop luggage first, depending on what time you arrive."], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/uEdTjrcyioXMHmqD7"}]}, {"t": "16:00", "k": "stop", "title": "Muzenmotel 暮澄行館", "sub": "Check in and drop luggage.", "notes": ["Or drop luggage and makan nearby, then come back to check in at 4pm and go direct to the concert venue."], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/QuQsV3X3RLMj3Kzu6"}]}, {"t": "16:30", "k": "move", "title": "Depart to Kaohsiung National Stadium", "sub": "Latest to leave: 17:00. Takes 1 hr 22 mins from Muzen Motel, by bus and train.", "notes": [], "links": [{"l": "Route: Pingtung → Stadium", "u": "https://maps.app.goo.gl/PciJTpcMMBmNJW8n6"}, {"l": "Stadium", "u": "https://maps.app.goo.gl/ZJcMeMhzcXoYaSLN7"}]}, {"t": "18:00", "k": "show", "title": "Arrive at Kaohsiung National Stadium", "sub": "Target 18:00 just in case anything happens.", "notes": ["Concert starts 19:00."], "links": [{"l": "Stadium", "u": "https://maps.app.goo.gl/ZJcMeMhzcXoYaSLN7"}]}, {"t": "19:00", "k": "show", "title": "BTS Concert", "sub": "", "notes": [], "links": []}, {"t": "22:00", "k": "move", "title": "Concert bus back to Pingtung", "sub": "Be at the bus location within 45 mins after the concert ends. About 45 mins drive. Bus arrives at Pingtung train station.", "notes": ["Further bus details released on 16 Nov."], "links": [{"l": "Bus details form", "u": "https://docs.google.com/forms/d/e/1FAIpQLSeHkU0un0bRKZJO4TghlZrtR-_wO5uKmOotmD564lG1Gx-2JA/viewform"}]}, {"t": "Late", "k": "stop", "title": "Back to Muzenmotel", "sub": "Pingtung train station to Muzen Motel: 8 mins drive or 25 mins walk.", "notes": [], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/QuQsV3X3RLMj3Kzu6"}]}], "food": [{"name": "津美手工麵", "tag": "Hand-made noodles", "note": "8 mins walk from Muzen Motel", "hours": "See Google Maps", "u": "https://maps.app.goo.gl/uEdTjrcyioXMHmqD7", "zh": null}, {"name": "Liu Shan Dong", "tag": "Beef or pork chop noodles", "note": "2 mins walk from hotel (breakfast)", "hours": "8am – 6pm", "u": "https://maps.app.goo.gl/Nw1DZJvcARrV1ST38", "zh": null}, {"name": "Fuzhou Ancestral Pepper Cake", "tag": "福州世祖胡椒餅 · takeaway", "note": "Opposite hotel", "hours": "Opens 11am", "u": "https://maps.app.goo.gl/pT5VuhCBF6arFPsf8", "zh": null}, {"name": "Yong He Soy Milk", "tag": "Soy milk, bread, pancakes, dumplings", "note": "10 mins walk or 10 mins bus from hotel", "hours": "12am – 2:30pm", "u": "https://maps.app.goo.gl/ozBKHnBWFGV3yoKaA", "zh": null}, {"name": "Fuhong Beef Noodles", "tag": "Noodles", "note": "10 mins walk from hotel", "hours": "Open 24 hrs", "u": "https://maps.app.goo.gl/kuK1aSnkVtCRC8VV7", "zh": null}, {"name": "Fu Hang Soy Milk", "tag": "Soy milk, bread, pancakes, dumplings", "note": "Probably too early for us lol", "hours": "5:30am – 12:30pm", "u": "https://www.google.com/maps/place/fuhang+taipei/data=!4m2!3m1!1s0x3442a97065a9fe7d:0x9f8ad0b871ef2d1e?sa=X&ved=1t:242&ictx=111", "zh": null}], "recs": [{"name": "Pingtung Night Market", "note": "Big local night market in Pingtung city if you have energy after the concert day or want a snack before it. Check which days it runs.", "u": "https://www.google.com/maps/search/?api=1&query=Pingtung%20Night%20Market", "tag": "Food"}, {"name": "Concert day pack list", "note": "Printed tickets, power bank, cash (NTD), rain poncho, light stick. Screenshot your bus route and the 16 Nov bus details in case signal drops.", "u": "https://www.google.com/maps/search/?api=1&query=Kaohsiung%20National%20Stadium", "tag": "Tip"}]}, {"id": "d3", "tab": "D3", "date": "Fri 20 Nov", "title": "Pingtung → Xiaoliuqiu", "route": "Pingtung → Donggang → Lambai Island", "color": "teal", "stops": [{"t": "08:00 – 10:00", "k": "move", "title": "Check out and head to Dongliu Ferry Terminal", "sub": "1 hr 29 mins by train or 43 mins by car. If train, go to Pingtung station first.", "notes": [], "links": []}, {"t": "10:00 – 10:30", "k": "move", "title": "Ferry to Lambai Island (about 30 mins)", "sub": "The ferry stops at either Baishawei wharf or Donggang Ferryboat wharf. Donggang is nearer to our hotel.", "notes": ["Try to arrive early in case the electric scooters for rental run out."], "links": []}, {"t": "10:30 – 11:00", "k": "stop", "title": "Scooter rental", "sub": "", "notes": [], "links": []}, {"t": "15:00", "k": "stop", "title": "消波塊民宿 (Tetrapod B&B)", "sub": "Check in at 3pm.", "notes": ["Ferry from Donggang Ferryboat Wharf to Baishawei or Dafu Ferryboat Wharf (Dafu is closer to the B&B)."], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/888Q8e2A3qASobxw6"}]}, {"t": "Spot", "k": "stop", "title": "Liuchiu Yu Lighthouse", "sub": "Lighthouse tourist spot.", "notes": [], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/UNHDLkznbTnwyrz59"}]}, {"t": "Sunset", "k": "stop", "title": "Sunset Pavilion", "sub": "For sunset.", "notes": [], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/dZuCd3vBWgNYRyMz6"}]}, {"t": "Evening", "k": "food", "title": "脈岔", "sub": "Bar with craft beers.", "notes": [], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/BggDCBPabwjdhVmt5"}]}, {"t": "Evening", "k": "food", "title": "Sea Daze Liuqiu", "sub": "", "notes": [], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/XnB5Nz4Vor1rTwyp8"}]}], "loop": [["08:30 – 09:30", "Baishawei Ferry Terminal & Zhongao Beach", "Arrive at pier and pick up rented scooter or e-bike right outside. Ride 5 mins east to Zhongao Beach for calm morning views toward Kaohsiung.", "Scooter / e-bike rental fee"], ["09:30 – 11:30", "Beauty Cave & Beauty Beach", "Head west along the coast to walk shaded limestone trails at Beauty Cave. Cross the road to Beauty Beach to snorkel in clear water with green sea turtles.", "NT$120 (3-in-1 combo ticket, cash only)"], ["11:30 – 13:00", "Wild Boar Trench & Black Devil Cave", "Continue south to walk the jungle boardwalk at Wild Boar Trench Trail. Squeeze through the dark coral tunnels of Black Devil Cave and see cliffside views.", "Included in 3-in-1 combo ticket"], ["13:00 – 14:30", "Minsheng Road & Zhongshan Road (Main Town)", "Ride back up to town to refuel and cool off in air-conditioning. Aim to arrive by 1:00 PM before local eateries close at 2:00 – 2:30 PM.", "~NT$100–400 (cash only)"], ["14:30 – 16:30", "Lobster Cave & Secret Beach", "Head to the northeast coast to see the sea-erosion trench at Lobster Cave and spot feeding turtles. Continue south past Houshi Fringing Reef to wade in Secret Beach.", "Free"], ["16:30 – 18:00", "Venice Beach (Geban Bay) & Ferry Terminal", "Finish on the southwest coast for golden-hour photos on white shell-sand. Return scooter near the pier and catch an evening ferry back to Donggang.", "Ferry return ticket"]], "food": [{"name": "龜龜食堂 (Guigui Canteen)", "tag": "Noodle shop · NT$1–200", "note": "Minsheng Road, Benfu Village. Try: basil soup dumplings (10-min wait), crispy pork rib noodle soup", "hours": "10:00 – 22:00 (opens 9:00 Mon & Sat)", "u": "https://www.google.com/maps/search/?api=1&query=%E9%BE%9C%E9%BE%9C%E9%A3%9F%E5%A0%82%20%E5%B0%8F%E7%90%89%E7%90%83", "zh": null}, {"name": "高記在地小吃 (Gaoji Local Snacks)", "tag": "Taiwanese · NT$200–400", "note": "Zhongshan Road, Benfu Village. Try: deep-fried mahi-mahi, crispy beehive shrimp, local seaweed soup", "hours": "10:00 – 14:00, 17:00 – 20:00", "u": "https://www.google.com/maps/search/?api=1&query=%E9%AB%98%E8%A8%98%E5%9C%A8%E5%9C%B0%E5%B0%8F%E5%90%83%20%E5%B0%8F%E7%90%89%E7%90%83", "zh": null}, {"name": "東港陣頭飯湯", "tag": "Chinese / seafood · NT$1–200", "note": "Minsheng Road, Benfu Village. Try: surf-and-turf three-treasure rice, traditional seafood rice soup (A/C seating)", "hours": "10:00 – 20:00 daily", "u": "https://www.google.com/maps/search/?api=1&query=%E6%9D%B1%E6%B8%AF%E9%99%A3%E9%A0%AD%E9%A3%AF%E6%B9%AF%20%E5%B0%8F%E7%90%89%E7%90%83", "zh": null}, {"name": "小琉球穎川古早味麵店", "tag": "Chinese noodles · NT$1–200", "note": "Liuqiu Township. Try: traditional dry noodles with house chili sauce, blanched local wolfberry greens", "hours": "8:00 – 14:00 daily", "u": "https://www.google.com/maps/search/?api=1&query=%E5%B0%8F%E7%90%89%E7%90%83%E7%A9%8E%E5%B7%9D%E5%8F%A4%E6%97%A9%E5%91%B3%E9%BA%B5%E5%BA%97", "zh": null}], "recs": [{"name": "Vase Rock (花瓶岩)", "note": "Xiaoliuqiu's best-known landmark. Good for a sunset photo and easy to pair with the Venice Beach stop.", "u": "https://www.google.com/maps/search/?api=1&query=Vase%20Rock%20Xiaoliuqiu", "tag": "Sight"}, {"name": "Turtle etiquette", "note": "Keep your distance and never touch the sea turtles. Bring cash since many shops and the combo ticket are cash only.", "u": "https://www.google.com/maps/search/?api=1&query=Beauty%20Cave%20Xiaoliuqiu", "tag": "Tip"}]}, {"id": "d4", "tab": "D4", "date": "Sat 21 Nov", "title": "Back to Taipei, then the airport hotel", "route": "Xiaoliuqiu → Donggang → Zuoying → Zhongshan → Taoyuan", "color": "teal", "stops": [{"t": "06:00", "k": "stop", "title": "Sunrise Pavilion", "sub": "Sunrise about 6:14am.", "notes": [], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/p9fp7dCoGDwLx8TG6"}]}, {"t": "08:00 – 12:30", "k": "move", "title": "Check out and head back to Taipei", "sub": "Earliest ferry 7:40am. About 4 hrs 28 mins to Taipei Zhongshan district.", "notes": [], "links": []}, {"t": "07:00 – 07:15", "k": "move", "title": "1. Hotel → Pier", "sub": "Lambai Hotel → Baishawan Pier (scooter drop-off / B&B transfer). ~15 mins.", "notes": [], "links": [{"l": "Open", "u": "https://www.google.com/search?kgmid=%2Fg%2F11nc70ylv_"}]}, {"t": "07:40 – 08:05", "k": "move", "title": "2. Ferry crossing", "sub": "Xiaoliuqiu → Donggang Ferry Terminal (earliest Tungliu ferry). ~25 mins.", "notes": [], "links": [{"l": "Open", "u": "https://www.google.com/search?kgmid=%2Fm%2F05pmvt"}]}, {"t": "08:15 – 09:05", "k": "move", "title": "3. Direct transfer", "sub": "Donggang Pier → Zuoying HSR Station (direct taxi or pre-booked car). ~40–50 mins.", "notes": [], "links": [{"l": "Open", "u": "https://www.google.com/search?kgmid=%2Fg%2F1tflc_92"}]}, {"t": "09:25 – 11:00", "k": "move", "title": "4. High-speed rail", "sub": "Zuoying HSR → Taipei Main Station (express HSR). ~1 hr 35 mins – 2 hrs.", "notes": [], "links": [{"l": "Open", "u": "https://www.google.com/search?kgmid=%2Fm%2F04g0c8s"}]}, {"t": "11:10 – 11:20", "k": "move", "title": "5. Taipei MRT", "sub": "Taipei Main Station → Zhongshan Station (Red Line / Tamsui-Xinyi Line). ~5–10 mins.", "notes": ["Arrival in Zhongshan: around 11:15 – 11:30am."], "links": [{"l": "Open", "u": "https://www.google.com/search?kgmid=%2Fm%2F03tg06"}, {"l": "Arrival", "u": "https://www.google.com/search?kgmid=%2Fm%2F01l3q8"}]}, {"t": "11:30", "k": "stop", "title": "Zhongshan · lunch and shopping", "sub": "Lunch and shopping in Zhongshan district.", "notes": [], "links": [{"l": "Open map", "u": "https://maps.app.goo.gl/w6r9SxayxR54QSsD9"}]}, {"t": "19:30", "k": "stop", "title": "Holiday Inn Taoyuan Airport", "sub": "40 mins drive or 1 hr 30 mins by train from Zhongshan district. Check-in from 3:00pm.", "notes": ["Hotel shuttle to the airport needs to be reserved 1 day in advance."], "links": [{"l": "Open map", "u": "https://www.google.com/maps/place/Holiday+Inn+Taoyuan+Airport/@25.0607804,121.1749874,1410m/data=!3m1!1e3!4m10!3m9!1s0x346820b5dfeefa19:0x5b077f77a64d954c!5m3!1s2026-11-19!4m1!1i2!8m2!3d25.0607804!4d121.1749874!16s%2Fg%2F11c43mpcj7?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D"}]}], "food": [{"name": "Fuhang Soy Milk", "tag": "Breakfast classic", "note": "", "hours": "5:30am – 12:30pm", "u": "http://google.com/maps?sca_esv=532111fc5a5c2ade&output=search&q=fu+hang+soy+milk&source=lnms&fbs=ACAhTvwdifjn2dKXmjtOfBxVFl_koHVe5RLSnJlTH2QYaq_YVdbYfq_upmJPcFgYr-v9gSTAIQEOuzyhFqt8W8FJFzaCkf3R_Mc3PgVUsG2axKAzS6WtjC-RYm5YYx4LJHxnHQeaqccXbXDMNtSi8p1JYaHVfTWyieaK_9ERpUccd0eD3vGV4bJcQZznA6g9ad0yz_T32JK0nPsDIee5e9oMa0qxU8OrEw&entry=mc&ved=1t:200715&ictx=111", "zh": null}, {"name": "Liu Mama Fantuan", "tag": "Rice rolls (飯糰)", "note": "", "hours": "5:10am – 11:30am", "u": "https://www.google.com/maps?sca_esv=c9d6325596bae6ce&biw=1536&bih=826&output=search&q=liu+mama+fantuan+taipei&source=lnms&fbs=ACAhTvzpxoHBcEVXReaT2lQELuZr-aZnEoLx-p4zpjh9glv54_dznCc51wuIWelNweY6uDM_W6qcmLx_NdFl91EtdJM8PVycxBjLAJ_T6eLLi1Bm0gq1ixgLxFaASnEBYfAp-RajKEia5YufybS8lNzlJnn5tXpHrBOv7Ba29UKzcahSudAIAklcs45PE4nzXWjrjaaFgcaBpdqG0vWFGwerQ2jarurTmtpudAN221I2yJxhiNBvWm4&entry=mc&ved=1t:200715&ictx=111", "zh": null}, {"name": "Tian Jin Onion Pancake", "tag": "Scallion pancakes", "note": "", "hours": "8am – 10pm", "u": "https://www.google.com/maps/place/Tian+Jin+Onion+Pancake/@25.0338365,121.5230258,3709m/data=!3m1!1e3!4m6!3m5!1s0x3442a98585673043:0xe9aa78fb08f95aed!8m2!3d25.0326689!4d121.5297056!16s%2Fg%2F1td4mdbq?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D", "zh": null}, {"name": "Chia Te Bakery", "tag": "Buy fenglisu (pineapple cakes)", "note": "Souvenir stop", "hours": "See Google Maps", "u": "https://www.google.com/maps/search/?api=1&query=Chia%20Te%20Bakery%20Taipei", "zh": null}], "shops": [{"name": "UR Living 生活美學 · Nanxi 1", "tag": "Clothing store with different Taiwanese, Japanese, Korean brands", "note": "", "hours": "See Google Maps", "u": "http://google.com/maps?vet=10CAAQoqAOahcKEwjIup-Sx_iXAxUAAAAAHQAAAAAQDw..i&sca_esv=c9d6325596bae6ce&udm&fvr=1&pvq=Cg0vZy8xMXk0Mmp6bjVyIg8KCXVyIGxpdmluZxACGAM&lqi=Chjlj7DljJfotaTls7DooZd1ciBsaXZpbmdIt6G9qJC9gIAIWicQAxAEGAAYAxgEIhvlj7DljJcg6LWk5bOwIOihlyB1ciBsaXZpbmeSAQVzdG9yZZoBRENpOURRVWxSUVVOdlpFTm9kSGxqUmpsdlQydGtkRnBwTUhwaWFtUldURlJCZVZkVlZuQlphMVl6VkZjMWRFMVhZeEFC-gEECAAQEg&cs=1&um=1&ie=UTF-8&fb=1&gl=sg&sa=X&ftid=0x3442a98e584f49eb:0x40fbf50ebdf0187e", "zh": null}, {"name": "GU", "tag": "Sister brand of Uniqlo", "note": "Lots of outlets around Taipei city", "hours": "See Google Maps", "u": "https://www.google.com/maps/search/?api=1&query=GU%20Zhongshan%20Taipei", "zh": null}], "recs": [{"name": "Din Tai Fung (Yongkang St)", "note": "Famous xiaolongbao. Queue early or grab a ticket online. A short ride from Zhongshan.", "u": "https://www.google.com/maps/search/?api=1&query=Din%20Tai%20Fung%20Xinyi%20Road%20Taipei", "tag": "Food"}, {"name": "Zhongshan Metro Mall", "note": "Underground shopping street linking Zhongshan and Shuanglian stations. Useful when it rains.", "u": "https://www.google.com/maps/search/?api=1&query=Zhongshan%20Metro%20Mall%20Taipei", "tag": "Shop"}, {"name": "Zhongli Night Market", "note": "If you want a last street-food hit near the airport hotel. Check it is open before heading out.", "u": "https://www.google.com/maps/search/?api=1&query=Zhongli%20Night%20Market", "tag": "Food"}]}, {"id": "d5", "tab": "D5", "date": "Sun 22 Nov", "title": "Balik kampung", "route": "Holiday Inn → TPE → PEN / SIN", "color": "teal", "stops": [{"t": "06:00", "k": "move", "title": "Check out and head to Taoyuan Airport", "sub": "30 mins drive.", "notes": ["Reserve the hotel shuttle 1 day in advance."], "links": [{"l": "Taoyuan Airport", "u": "https://maps.app.goo.gl/B7Vf2qNeUin41obf8"}]}, {"t": "9:30 – 14:20", "k": "fly", "title": "TPE → PEN · Flight CI731", "sub": "YX flight, China Airlines", "notes": [], "links": []}, {"t": "8:20 – 13:05", "k": "fly", "title": "TPE → SIN · Flight CI753", "sub": "LY flight, China Airlines", "notes": [], "links": []}], "food": [], "recs": []}];
+const STAYS=[{"name": "Hotel Relax 5", "when": "Ximending · 18 – 19 Nov", "u": "https://maps.app.goo.gl/kGcrxZSAcZKuBqiu6"}, {"name": "Muzenmotel 暮澄行館", "when": "Pingtung · 19 – 20 Nov", "u": "https://maps.app.goo.gl/QuQsV3X3RLMj3Kzu6"}, {"name": "消波塊民宿 Tetrapod B&B", "when": "Xiaoliuqiu · 20 – 21 Nov", "u": "https://maps.app.goo.gl/888Q8e2A3qASobxw6"}, {"name": "Holiday Inn Taoyuan Airport", "when": "Taoyuan · 21 – 22 Nov", "u": "https://www.google.com/maps/place/Holiday+Inn+Taoyuan+Airport/@25.0607804,121.1749874,1410m/data=!3m1!1e3!4m10!3m9!1s0x346820b5dfeefa19:0x5b077f77a64d954c!5m3!1s2026-11-19!4m1!1i2!8m2!3d25.0607804!4d121.1749874!16s%2Fg%2F11c43mpcj7?entry=ttu&g_ep=EgoyMDI2MTEwMy4wIKXMDSoASAFQAw%3D%3D"}];
+const FLIGHTS=[
+ ['18 Nov','15:20 – 19:55','PEN → TPE · CI732','YX · China Airlines'],
+ ['18 Nov','14:25 – 19:05','SIN → TPE · CI754','LY · China Airlines'],
+ ['22 Nov','9:30 – 14:20','TPE → PEN · CI731','YX · China Airlines'],
+ ['22 Nov','8:20 – 13:05','TPE → SIN · CI753','LY · China Airlines']];
+const KIND={move:'Commute',show:'Concert',food:'Eat / drink',fly:'Flight',stop:'Stop'};
+const PIN='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-6.2 7-12a7 7 0 1 0-14 0c0 5.8 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>';
+const EXT='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"/></svg>';
+const $=(s,r=document)=>r.querySelector(s);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+let store={};
+try{store=JSON.parse(localStorage.getItem('bts-tw-done')||'{}')}catch(e){}
+const save=()=>{try{localStorage.setItem('bts-tw-done',JSON.stringify(store))}catch(e){}};
+const isMap=u=>/maps|goo\.gl\/maps|google\.com\/search\?kgmid/.test(u);
+const A=(l,u,cls='')=>`<a class="btn ${cls}" href="${esc(u)}" target="_blank" rel="noopener">${cls.includes('map')?PIN:EXT}${esc(l)}</a>`;
+
+const tabs=$('#tabs');
+const tripStart=new Date('2026-11-18T00:00:00+08:00');
+const todayIdx=(()=>{const d=Math.floor((Date.now()-tripStart)/864e5);return d>=0&&d<=4?d+1:-1})();
+DAYS.forEach((d,i)=>{
+  const b=document.createElement('button');
+  b.className='tab'+(i===todayIdx?' today':'');b.id='tab-'+d.id;b.setAttribute('role','tab');
+  b.innerHTML=`<b>${d.tab}</b><small>${d.id==='prep'?'Checklist':d.date.replace(/^\w+ /,'')}</small>`;
+  b.onclick=()=>show(d.id,true);tabs.appendChild(b);
+});
+
+function foodCard(f,extra){
+  const act=f.u?A('Map',f.u,'map'):'';
+  return `<div class="fcard ${extra?'extra':''}"><div><h4>${esc(f.name)}</h4>${f.tag?`<span class="tag">${esc(f.tag)}</span>`:''}</div>${f.note?`<p>${esc(f.note)}</p>`:''}${f.hours?`<div><span class="hours">${esc(f.hours)}</span></div>`:''}${act}</div>`;
+}
+function stopHTML(d,s,i){
+  const key=d.id+':'+i, done=!!store[key];
+  const links=(s.links||[]).map(l=>A(l.l,l.u,isMap(l.u)&&!/form|ibon|guide/i.test(l.l)?'map':'')).join('');
+  return `<li class="stop k-${s.k}${done?' done':''}" data-key="${key}"><div class="time">${esc(s.t)}</div>
+  <div class="card"><div class="row"><div class="body"><span class="kind">${KIND[s.k]}</span><h4>${esc(s.title)}</h4>${s.sub?`<p>${esc(s.sub)}</p>`:''}${s.notes&&s.notes.length?`<ul>${s.notes.map(n=>`<li>${esc(n)}</li>`).join('')}</ul>`:''}</div>
+  <input type="checkbox" class="chk" aria-label="Mark done: ${esc(s.title)}" ${done?'checked':''}></div>${links?`<div class="btns">${links}</div>`:''}</div></li>`;
+}
+function render(id){
+  const idx=DAYS.findIndex(d=>d.id===id),d=DAYS[idx];
+  let h='';
+  if(id==='prep'){
+    h+=`<div class="dayhead"><div class="date">${d.date}</div><h2>${d.title}</h2><p class="route">Tick these off before you leave.</p></div><div class="todo">`;
+    d.todo.forEach((t,i)=>{const k='prep:'+i;h+=`<label><input type="checkbox" class="chk" data-k="${k}" ${store[k]?'checked':''}><span>${esc(t[0])}${t[1]?`<br><a href="${esc(t[1])}" target="_blank" rel="noopener" style="color:var(--accent);font-weight:600">Open arrival card site</a>`:''}</span></label>`});
+    h+=`</div><h3 class="sec">Flights</h3><div class="flights">${FLIGHTS.map(f=>`<div class="fl"><span class="t" style="grid-column:1;color:var(--fly)">${f[0]}</span><b>${f[2]}</b><span class="t" style="color:var(--muted);font-weight:500;grid-column:1">${f[1]}</span><span>${f[3]}</span></div>`).join('')}</div>`;
+    h+=`<h3 class="sec">Where you stay</h3><div class="stays">${STAYS.map(s=>`<div class="stay"><div><b>${esc(s.name)}</b><span>${esc(s.when)}</span></div>${A('Map',s.u,'map')}</div>`).join('')}</div>`;
+    h+=`<div class="pn"><button class="btn map" data-go="d1">Start Day 1</button></div>`;
+    return h;
+  }
+  const total=d.stops.length;
+  h+=`<div class="dayhead"><div class="date">${d.date}</div><h2>${esc(d.title)}</h2><p class="route">${esc(d.route)}</p><div class="prog"><div class="bar"><i id="pbar"></i></div><span id="plab"></span></div></div>`;
+  h+=`<ol class="rail">${d.stops.map((s,i)=>stopHTML(d,s,i)).join('')}</ol>`;
+  if(d.loop){
+    h+=`<h3 class="sec">Island loop · Xiaoliuqiu in one day</h3><p class="note">Suggested counterclockwise route from your Lambai Island recs. Costs are cash only.</p><div class="loop">${d.loop.map(l=>`<div class="card"><span class="kind" style="background:var(--transit-bg);color:var(--transit)">${esc(l[0])}</span><h4>${esc(l[1])}</h4><p>${esc(l[2])}</p><span class="cost">${esc(l[3])}</span></div>`).join('')}</div>`;
+  }
+  if(d.food&&d.food.length) h+=`<h3 class="sec">${id==='d3'?'Lunch stops on the island':'Eat nearby'}</h3><div class="grid">${d.food.map(f=>foodCard(f)).join('')}</div>`;
+  if(d.shops) h+=`<h3 class="sec">Shopping</h3><div class="grid">${d.shops.map(f=>foodCard(f)).join('')}</div>`;
+  if(d.recs&&d.recs.length) h+=`<h3 class="sec">Suggested extras</h3><p class="note">Not in your sheet. Ideas to check out if you have time. Confirm hours before going.</p><div class="grid">${d.recs.map(r=>foodCard({name:r.name,tag:r.tag,note:r.note,u:r.u},true)).join('')}</div>`;
+  const prev=DAYS[idx-1],next=DAYS[idx+1];
+  h+=`<div class="pn">${prev?`<button class="btn" data-go="${prev.id}">← ${prev.tab==='Prep'?'Checklist':prev.tab}</button>`:''}${next?`<button class="btn map" data-go="${next.id}">${next.tab} →</button>`:''}</div>`;
+  return h;
+}
+function progress(id){
+  const d=DAYS.find(x=>x.id===id);if(!d.stops)return;
+  const n=d.stops.filter((s,i)=>store[id+':'+i]).length;
+  const b=$('#pbar'),l=$('#plab');if(b){b.style.width=(100*n/d.stops.length)+'%';l.textContent=n+' of '+d.stops.length+' done'}
+}
+function show(id,scroll){
+  if(!DAYS.some(d=>d.id===id))id='prep';
+  $('#view').innerHTML=render(id);
+  tabs.querySelectorAll('.tab').forEach(t=>t.setAttribute('aria-selected',t.id==='tab-'+id));
+  const t=$('#tab-'+id);if(t)t.scrollIntoView({inline:'center',block:'nearest'});
+  try{history.replaceState(null,'','#'+id)}catch(e){location.hash=id}
+  try{localStorage.setItem('bts-tw-day',id)}catch(e){}
+  progress(id);
+  if(scroll)window.scrollTo({top:0});
+}
+$('#view').addEventListener('change',e=>{
+  const c=e.target;if(!c.classList.contains('chk'))return;
+  const li=c.closest('.stop');const k=li?li.dataset.key:c.dataset.k;
+  if(c.checked)store[k]=1;else delete store[k];save();
+  if(li){li.classList.toggle('done',c.checked);progress(k.split(':')[0])}
+});
+$('#view').addEventListener('click',e=>{const g=e.target.closest('[data-go]');if(g)show(g.dataset.go,true)});
+window.addEventListener('hashchange',()=>show(location.hash.slice(1)));
+let start=location.hash.slice(1);
+if(!start){start=todayIdx>0?DAYS[todayIdx].id:'prep'}
+show(start,false);
+</script>
+
+</body></html>
